@@ -1,27 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
 
-    private bool gameEnded = false;
-    
-    void Update()
+    public static bool GameIsOver;
+
+    public GameObject gameOverUI;
+
+    public string nextLevel = "Level02";
+    public int levelToUnlock = 2;
+
+    public GameObject completeLevelUI;
+
+    void Start ()
     {
-        if(gameEnded)
+        GameIsOver = false;
+    }
+
+    // Update is called once per frame
+    void Update () {
+        if (GameIsOver)
             return;
-        
+
         if (PlayerStats.Lives <= 0)
         {
             EndGame();
         }
-        
     }
 
-    void EndGame()
+    void EndGame ()
     {
-        gameEnded = true;
-        Debug.Log("Game Over!");
+        GameIsOver = true;
+        gameOverUI.SetActive(true);
     }
+
+    public void WinLevel ()
+    {
+        GameIsOver = true;
+        completeLevelUI.SetActive(true);
+    }
+
 }

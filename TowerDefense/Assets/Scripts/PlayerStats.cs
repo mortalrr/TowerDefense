@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
-public class PlayerStats : MonoBehaviour
-{
+public class PlayerStats : MonoBehaviour {
 
     public static int Money;
     public int startMoney = 400;
@@ -12,9 +9,14 @@ public class PlayerStats : MonoBehaviour
     public static int Lives;
     public int startLives = 20;
 
-    private void Start()
+    public static int Rounds;
+
+    void Start ()
     {
         Money = startMoney;
         Lives = startLives;
+
+        Rounds = 0;
     }
+
 }
