@@ -25,8 +25,14 @@ public class WaveSpawner : MonoBehaviour
       {
           return;
       }
-      
-      if (countdown <= 0)
+
+      if (waveIndex == waves.Length)
+      {
+          gameManager.WinLevel();
+          this.enabled = false;
+      }
+
+      if (countdown <= 0f)
       {
           StartCoroutine(SpawnWave());
           countdown = timeBetweenWaves;
@@ -45,25 +51,21 @@ public class WaveSpawner : MonoBehaviour
       PlayerStats.Rounds++;
 
       Wave wave = waves[waveIndex];
-      
+
+      EnemiesAlive = wave.count;
+
       for (int i = 0; i < wave.count; i++)
       {
           SpawnEnemy(wave.enemy);
-          yield return new WaitForSeconds(1f/wave.rate);
+          yield return new WaitForSeconds(1f / wave.rate);
       }
-      waveIndex++;
 
-      if (waveIndex == waves.Length)
-      {
-          gameManager.WinLevel();
-          this.enabled = false;
-      }
+      waveIndex++;
   }
 
   void SpawnEnemy(GameObject enemy)
   {
       Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
-      EnemiesAlive++;
   }
   
 }
