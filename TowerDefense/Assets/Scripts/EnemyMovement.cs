@@ -1,20 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent((typeof(Enemy)))]
 public class EnemyMovement : MonoBehaviour
 {
     private Transform target;
+    private NavMeshAgent nav;
     private int wavepointIndex = 0;
-
     private Enemy enemy;
 
     void Start()
     {
         enemy = GetComponent<Enemy>();
-        
+            
         target = Waypoints.points[0];
+
+        nav = GetComponent<NavMeshAgent>();
+        nav.SetDestination(target.position);
     }
     void Update()
     {
@@ -43,7 +47,6 @@ public class EnemyMovement : MonoBehaviour
     void EndPath()
     {
         PlayerStats.Lives--;
-        WaveSpawner.EnemiesAlive--;
         Destroy(gameObject);
     }
 }
